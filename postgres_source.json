@@ -1,0 +1,32 @@
+{
+  "name": "postgres-emp-source",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+
+    "database.hostname": "host.docker.internal",
+    "database.port": "5432",
+    "database.user": "debezium",
+    "database.password": "9524",
+    "database.dbname": "postgres",
+
+    "topic.prefix": "cdc_project",
+
+    "schema.include.list": "public",
+    "table.include.list": "public.emp",
+
+    "plugin.name": "pgoutput",
+    "publication.name": "cdc_publication",
+    "publication.autocreate.mode": "disabled",
+    "slot.name": "debezium_emp_slot",
+
+    "tombstones.on.delete": "true",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "true",
+
+    "snapshot.mode": "initial"
+  }
+}
